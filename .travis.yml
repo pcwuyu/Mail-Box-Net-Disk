@@ -1,8 +1,8 @@
 language: csharp
 mono: none
-dotnet: 3.0.100
+dotnet: 3.1.100
 script:
-  - cd maildisk
+  - cd maildisk/maildisk
   - dotnet publish -r win-x86
   - dotnet publish -r win-x64
   - dotnet publish -r win-arm
@@ -11,29 +11,29 @@ script:
   - dotnet publish -r linux-arm
   - dotnet publish -r linux-arm64
   - dotnet publish -r osx-x64
-  - cd maildisk/bin/Debug/netcoreapp3.0/
-  - tar -zcvf ../../../../../linux-x64.tar.gz linux-x64/publish/
-  - tar -zcvf ../../../../../linux-arm.tar.gz linux-arm/publish/
-  - tar -zcvf ../../../../../linux-arm64.tar.gz linux-arm64/publish/
+  - cd bin/Debug/netcoreapp3.0/
+  - tar -zcvf ../../../../../cli-linux-x64.tar.gz linux-x64/publish/
+  - tar -zcvf ../../../../../cli-linux-arm.tar.gz linux-arm/publish/
+  - tar -zcvf ../../../../../cli-linux-arm64.tar.gz linux-arm64/publish/
   - sudo apt-get -y install zip
-  - zip -r ../../../../../win-x86.zip win-x86/publish/ -r
-  - zip -r ../../../../../win-x64.zip win-x64/publish/ -r
-  - zip -r ../../../../../win-arm.zip win-arm/publish/ -r
-  - zip -r ../../../../../win-arm64.zip win-arm64/publish/ -r
-  - zip -r ../../../../../osx-x64.zip osx-x64/publish/ -r
+  - zip -r ../../../../../cli-win-x86.zip win-x86/publish/ -r
+  - zip -r ../../../../../cli-win-x64.zip win-x64/publish/ -r
+  - zip -r ../../../../../cli-win-arm.zip win-arm/publish/ -r
+  - zip -r ../../../../../cli-win-arm64.zip win-arm64/publish/ -r
+  - zip -r ../../../../../cli-osx-x64.zip osx-x64/publish/ -r
   - cd ../../../../../
 deploy:
   provider: releases
   api_key: ${GITHUB_TOKEN}
   file:
-  - win-x86.zip
-  - win-x64.zip
-  - win-arm.zip
-  - win-arm64.zip
-  - linux-x64.tar.gz
-  - linux-arm.tar.gz
-  - linux-arm64.tar.gz
-  - osx-x64.zip
+  - cli-win-x86.zip
+  - cli-win-x64.zip
+  - cli-win-arm.zip
+  - cli-win-arm64.zip
+  - cli-linux-x64.tar.gz
+  - cli-linux-arm.tar.gz
+  - cli-linux-arm64.tar.gz
+  - cli-osx-x64.zip
   skip_cleanup: true
   on:
     tags: true
